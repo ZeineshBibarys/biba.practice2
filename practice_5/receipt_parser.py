@@ -51,5 +51,5 @@ def parse_receipt(file_path):
     return data
 
 if __name__ == "__main__":
-    receipt_data = parse_receipt('practice_5/raw.txt')
+    receipt_data = parse_receipt('raw.txt')
     print(json.dumps(receipt_data, indent=4, ensure_ascii=False))

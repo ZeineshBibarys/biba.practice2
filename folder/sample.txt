@@ -1,0 +1,5 @@
+Hello, this is line 1
+This is line 2
+Python file handling practice
+Appended line 1
+Appended line 2

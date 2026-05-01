@@ -1,0 +1,46 @@
+[
+    {
+        "name": "Zeinesh",
+        "email": "zeinesh@example.com",
+        "birthday": "2005-01-01",
+        "group": "Friend",
+        "phones": [
+            {
+                "phone": "87071112233",
+                "type": "mobile"
+            },
+            {
+                "phone": "87071112233",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "Tumar",
+        "email": "tumar@example.com",
+        "birthday": null,
+        "group": "Work",
+        "phones": [
+            {
+                "phone": "87132445566",
+                "type": "work"
+            },
+            {
+                "phone": "87132445566",
+                "type": "work"
+            }
+        ]
+    },
+    {
+        "name": "bi",
+        "email": "bi.gmail.com",
+        "birthday": "2008-03-09",
+        "group": null,
+        "phones": [
+            {
+                "phone": "87711833608",
+                "type": "mobile"
+            }
+        ]
+    }
+]

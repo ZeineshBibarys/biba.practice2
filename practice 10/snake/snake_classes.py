@@ -1,4 +1,5 @@
 import random
+import pygame
 
 # Экран мен тор (блок) өлшемдері
 WIDTH = 600
@@ -56,6 +57,10 @@ class Snake:
 class Food:
     def __init__(self):
         self.position = [0, 0]
+        self.weight = 1
+        self.color = (255, 0, 0) # Қызыл (Қалыпты тамақ)
+        self.spawn_time = 0
+        self.duration = 0 # 0 = шексіз уақыт
 
     def spawn(self, snake_body):
         # Тамақтың орнын кездейсоқ таңдау, бірақ ол жыланның денесімен қиылыспауы керек
@@ -67,3 +72,23 @@ class Food:
             if [x, y] not in snake_body:
                 self.position = [x, y]
                 break
+                
+        # 30% мүмкіндікпен арнайы (уақытша) тамақ шығару
+        chance = random.randint(1, 100)
+        if chance <= 30:
+            self.weight = 3              # 3 ұпай береді
+            self.color = (255, 215, 0)   # Алтын түсті
+            self.duration = 4000         # 4 секундтан кейін жоғалады (4000 миллисекунд)
+            self.spawn_time = pygame.time.get_ticks()
+        else:
+            self.weight = 1              # 1 ұпай береді
+            self.color = (255, 0, 0)     # Қызыл түсті
+            self.duration = 0            # Жоғалмайды
+
+    def check_expiration(self):
+        # Егер тамақтың уақыты шектеулі болса, оның мерзімі біткенін тексеру
+        if self.duration > 0:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.spawn_time > self.duration:
+                return True
+        return False

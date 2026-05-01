@@ -25,7 +25,7 @@ GRAY = (200, 200, 200)
 # Сурет салатын кенепті (canvas) бөлек жасаймыз
 # Интерфейспен араласып кетпеуі үшін оның биіктігі UI_HEIGHT-қа қысқа
 canvas = pygame.Surface((WIDTH, HEIGHT - UI_HEIGHT))
-canvas.fill(WHITE)
+canvas.fill(BLACK)
 
 font = pygame.font.SysFont("Verdana", 14)
 
@@ -37,7 +37,7 @@ color_buttons = [
     Button(10, 10, 40, 40, RED, RED),
     Button(60, 10, 40, 40, GREEN, GREEN),
     Button(110, 10, 40, 40, BLUE, BLUE),
-    Button(160, 10, 40, 40, BLACK, BLACK)
+    Button(160, 10, 40, 40, WHITE, WHITE)
 ]
 
 # Құрал таңдау батырмалары

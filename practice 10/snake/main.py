@@ -30,6 +30,7 @@ food.spawn(snake.body) # Алғашқы тамақты шығару
 
 # Ойын айнымалылары
 score = 0
+foods_eaten = 0 # Деңгейді көтеру үшін желінген тамақ санын қадағалау
 level = 1
 speed = 10  # Бастапқы жылдамдық
 running = True
@@ -70,12 +71,17 @@ while running:
     # 2. Жыланды жылжыту
     snake.move()
 
-    # 3. Тамақты жегенін тексеру
+    # 3. Тамақтың уақыты біткенін тексеру (Жаңа функция)
+    if food.check_expiration():
+        food.spawn(snake.body) # Уақыты бітсе, жаңасын шығарамыз
+
+    # 4. Тамақты жегенін тексеру
     if snake.body[0] == food.position:
-        score += 1
+        score += food.weight  # Тамақтың салмағына қарай ұпай қосу (1 немесе 3)
+        foods_eaten += 1
         
-        # Деңгей көтеру логикасы: Әр 4 тамақ сайын деңгей мен жылдамдық артады
-        if score % 4 == 0:
+        # Деңгей көтеру логикасы: Әр 4 тамақ жеген сайын деңгей мен жылдамдық артады
+        if foods_eaten % 4 == 0:
             level += 1
             speed += 2 
             
@@ -84,19 +90,19 @@ while running:
         # Егер тамақ жемесе, артындағы құйрығын қиып алып тастаймыз (жылан ұзындығы өзгермеуі үшін)
         snake.body.pop()
 
-    # 4. Соқтығысуды (Апатты) тексеру
+    # 5. Соқтығысуды (Апатты) тексеру
     if snake.check_collision():
         show_game_over()
 
-    # 5. Экранға сурет салу
+    # 6. Экранға сурет салу
     screen.fill(BLACK)
     
     # Жыланды сызу
     for pos in snake.body:
         pygame.draw.rect(screen, GREEN, pygame.Rect(pos[0], pos[1], BLOCK_SIZE, BLOCK_SIZE))
         
-    # Тамақты сызу
-    pygame.draw.rect(screen, RED, pygame.Rect(food.position[0], food.position[1], BLOCK_SIZE, BLOCK_SIZE))
+    # Тамақты сызу (тамақтың өз түсін пайдаланамыз: Қызыл немесе Алтын)
+    pygame.draw.rect(screen, food.color, pygame.Rect(food.position[0], food.position[1], BLOCK_SIZE, BLOCK_SIZE))
 
     # Интерфейс: Ұпай мен Деңгейді экранның сол жақ үстіне шығару
     ui_text = font_ui.render(f"Ұпай: {score} | Деңгей: {level}", True, WHITE)

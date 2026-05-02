@@ -78,8 +78,10 @@ def settings_menu(screen):
         draw_text(screen, "SETTINGS", 40, WIDTH//2, 80)
         
         btn_snd = draw_button(screen, f"Sound: {'ON' if settings['sound'] else 'OFF'}", 150)
-        btn_col = draw_button(screen, f"Car: {settings['car_color']}", 220)
-        btn_dif = draw_button(screen, f"Diff: {settings['difficulty']}", 290)
+        current_color = settings.get('car_color', 'Red')
+        btn_col = draw_button(screen, f"Car: {current_color}", 220)
+        current_diff = settings.get('difficulty', 'Easy') # 'difficulty' жоқ болса, 'Easy' деп алады
+        btn_dif = draw_button(screen, f"Diff: {current_diff}", 290)
         btn_back = draw_button(screen, "Back", 450)
 
         for event in pygame.event.get():
@@ -89,10 +91,12 @@ def settings_menu(screen):
                 if btn_snd.collidepoint(event.pos):
                     settings["sound"] = not settings["sound"]
                 if btn_col.collidepoint(event.pos):
-                    idx = (colors.index(settings["car_color"]) + 1) % len(colors)
+                    current_color = settings.get("car_color", colors[0])
+                    idx = (colors.index(current_color) + 1) % len(colors)
                     settings["car_color"] = colors[idx]
                 if btn_dif.collidepoint(event.pos):
-                    idx = (diffs.index(settings["difficulty"]) + 1) % len(diffs)
+                    current_diff = settings.get("difficulty", diffs[0])
+                    idx = (diffs.index(current_diff) + 1) % len(diffs)
                     settings["difficulty"] = diffs[idx]
                 if btn_back.collidepoint(event.pos):
                     save_settings(settings)
